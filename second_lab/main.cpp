@@ -73,8 +73,8 @@ int menu3() {
 	}
 }
 
-
-void SetData(Matrix& Mass, int m, int n) {
+template <typename T>
+void SetData(Matrix<T>& Mass, int m, int n) {
 	double value;
 	cout << "¬ведите значени€\n";
 	for (int i = 0; i < m; i++) {
@@ -105,8 +105,8 @@ int IntCheck()
 	return number;
 }
 
-
-void RandValue(Matrix& Mass, int m, int n) {
+template <typename T>
+void RandValue(Matrix<T>& Mass, int m, int n) {
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
 			Mass(i, j, rand() % 9);
@@ -114,9 +114,9 @@ void RandValue(Matrix& Mass, int m, int n) {
 	}
 }
 
-
+template <typename T>
 int main() {
-	Matrix C, B;
+	Matrix<T> C, B;
 	setlocale(LC_ALL, "");
 	int column, row;
 	while (true) {
@@ -125,7 +125,7 @@ int main() {
 		column = IntCheck();
 		row = IntCheck();
 		double value = IntCheck();
-		Matrix A(column, row, value);
+		Matrix<T> A(column, row, value);
 		while (true) {
 			system("cls");
 			cout << "A:\n" << A << endl;
@@ -142,7 +142,7 @@ int main() {
 		}
 		cout << "¬ведите размеры матрицы B (число столбцов и строк):";
 		cin >> column >> row;
-		Matrix B(column, row);
+		Matrix<T> B(column, row);
 		RandValue(B, column, row);
 		cout << "A:\n" << A << endl;
 		cout << "B:\n" << B << endl;
