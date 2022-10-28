@@ -25,6 +25,7 @@ template <typename T>
 Matrix<T>::Matrix(int m_, int n_) {
 	this->n = n_;
 	this->m = m_;
+
 	M = (T**) new T * [m];
 	for (int i = 0; i < m; i++) {
 		M[i] = (T*) new T[n];
@@ -35,10 +36,12 @@ template <typename T>
 Matrix<T>::Matrix(int m_, int n_, T value) {
 	this->n = n_;
 	this->m = m_;
+
 	M = (T**) new T * [m];
 	for (int i = 0; i < m; i++) {
 		M[i] = (T*) new T[n];
 	}
+
 	for (int i = 0; i < m; i++)
 		for (int j = 0; j < n; j++) {
 			this->M[i][j] = value;
@@ -54,11 +57,14 @@ Matrix<T>::Matrix(const Matrix& M_) {
 	for (int i = 0; i < m; i++) {
 		M[i] = new double[n];
 	}
+
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
 			M[i][j] = M_.M[i][j];
 		}
 	}
+
+	return *this;
 }
 
 
@@ -81,7 +87,6 @@ void Matrix<T>::Print() {
 			cout << M[i][j] << '\t';
 		}
 	}
-
 }
 
 
@@ -95,7 +100,7 @@ T& Matrix<T>::operator ()(int i, int j)
 
 
 template <typename T>
-Matrix& Matrix<T>::operator ()(int i, int j, T value)
+Matrix<T>& Matrix<T>::operator ()(int i, int j, T value)
 {
 	if ((i >= 0) && (i <= m) && (j >= 0) && (j <= n))
 		this->M[i][j] = value;
@@ -104,7 +109,7 @@ Matrix& Matrix<T>::operator ()(int i, int j, T value)
 
 
 template <typename T>
-Matrix Matrix<T>::operator + (const Matrix& B) {
+Matrix<T> Matrix<T>::operator + (const Matrix& B) {
 
 	if (n != B.n || m != B.m) throw EInvalidSize();
 	Matrix tmp(m, n);
@@ -118,7 +123,7 @@ Matrix Matrix<T>::operator + (const Matrix& B) {
 
 
 template <typename T>
-Matrix Matrix<T>::operator - (const Matrix& B) {
+Matrix<T> Matrix<T>::operator - (const Matrix& B) {
 	if (n != B.n || m != B.m) throw EInvalidSize();
 	int m_ = m;
 	int n_ = n;
@@ -133,7 +138,7 @@ Matrix Matrix<T>::operator - (const Matrix& B) {
 
 
 template <typename T>
-Matrix Matrix<T>::operator * (const Matrix& B) {
+Matrix<T> Matrix<T>::operator * (const Matrix& B) {
 	if (m != B.n) throw EInvalidMull();
 	int m_ = GetM();
 	int n_ = B.n;
@@ -154,7 +159,7 @@ Matrix Matrix<T>::operator * (const Matrix& B) {
 
 
 template <typename T>
-Matrix Matrix<T>::operator * (const T a) {
+Matrix<T> Matrix<T>::operator * (const T a) {
 	Matrix tmp(m, n);
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
@@ -166,7 +171,7 @@ Matrix Matrix<T>::operator * (const T a) {
 
 
 template <typename T>
-Matrix Matrix<T>::operator / (T a) {
+Matrix<T> Matrix<T>::operator / (T a) {
 	if (a == 0) throw EdivisionZero();
 	Matrix tmp(m, n);
 	for (int i = 0; i < m; i++) {
@@ -179,7 +184,7 @@ Matrix Matrix<T>::operator / (T a) {
 
 
 template <typename T>
-double Matrix<T>::Trace() {
+T Matrix<T>::Trace() {
 	if (n != m)  throw EInvalidQuadrate();
 	double sum = 0;
 	for (int i = 0; i < m; i++) {
@@ -194,7 +199,7 @@ double Matrix<T>::Trace() {
 
 
 template <typename T>
-Matrix Matrix<T>::Triangular() {
+Matrix<T> Matrix<T>::Triangular() {
 	if (n != m)  throw EInvalidQuadrate();
 	double r;
 	for (int i = 0; i < n - 1; i++) {
@@ -223,7 +228,7 @@ void Matrix<T>::Transpose() {
 
 
 template <typename T>
-ostream& operator<< (ostream& s, const Matrix& matrix) {
+ostream& operator<< (ostream& s, const Matrix<T>& matrix) {
 
 	for (int i = 0; i < matrix.m; i++) {
 		for (int j = 0; j < matrix.n; j++)

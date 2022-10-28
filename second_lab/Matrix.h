@@ -17,23 +17,23 @@ private:
 	int m = 0;
 	T** M = NULL;
 public:
-	Matrix();
-	Matrix(int m_, int n_);
-	Matrix(int m_, int n_, T value);
-	Matrix(const Matrix& M_);
+	Matrix<T>();
+	Matrix<T>(int m_, int n_);
+	Matrix<T>(int m_, int n_, T value);
+	Matrix<T>(const Matrix& M_);
 	void Print();
 	int GetM();
 	int GetN();
 	T& operator ()(int i, int j);
 	Matrix& operator ()(int i, int j, T value);
-	Matrix operator + (const Matrix& B);
-	Matrix operator - (const Matrix& B);
-	Matrix operator * (const Matrix& B);
-	Matrix operator * (const T a);
-	Matrix operator / (const T a);
-	double Trace();
-	Matrix Triangular();
+	Matrix<T> operator + (const Matrix<T>& B);
+	Matrix<T> operator - (const Matrix<T>& B);
+	Matrix<T> operator * (const Matrix<T>& B);
+	Matrix<T> operator * (const T a);
+	Matrix<T> operator / (const T a);
+	T Trace();
+	Matrix<T> Triangular();
 	void Transpose();
-	friend std::ostream& operator << (std::ostream& s, const Matrix& matrix);
+	friend std::ostream& operator << (std::ostream& s, const Matrix<T>& matrix);
 };
 
