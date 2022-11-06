@@ -73,21 +73,7 @@ int menu3() {
 	}
 }
 
-int menu4() {
-	cout << "\nКакой тип данных вы хотите использовать?"
-		"1 - int"
-		"2 - float"
-		"3 - double"
-		"4 - complex(float)"
-		"5 - complex(double)"
-		"Выход: Esc\n";
-	while (true)
-	{
-		int key = GetKey();
-		if ((key == 27) || (key > '0' && key <= '5'))
-			return key;
-	}
-}
+
 
 template <typename T>
 void SetData(Matrix<T>& Mass, int m, int n) {
@@ -130,8 +116,7 @@ void RandValue(Matrix<T>& Mass, int m, int n) {
 	}
 }
 
-template <typename T>
-int main() {
+template <typename T>void menu4() {
 	Matrix<T> C, B;
 	setlocale(LC_ALL, "");
 	int column, row;
@@ -140,7 +125,7 @@ int main() {
 		cout << "Введите размеры матрицы А (число столбцов и строк) а так же число для заполнения:";
 		column = IntCheck();
 		row = IntCheck();
-		double value = IntCheck();
+		T value = IntCheck();
 		Matrix<T> A(column, row, value);
 		while (true) {
 			system("cls");
@@ -239,6 +224,39 @@ int main() {
 				break;
 			}
 		}
+	}
+	return 0;
+}
+int main() {
+	cout << "\nКакой тип данных вы хотите использовать?"
+		"1 - int"
+		"2 - float"
+		"3 - double"
+		"4 - complex(float)"
+		"5 - complex(double)"
+		"Выход: Esc\n";
+	while (true)
+	{
+		int type = GetKey();
+		switch (type)
+		{
+		case 49:
+			menu4<int>();
+			break;
+		case 50:
+			menu4<float>();
+			break;
+		case 51:
+			menu4<double>();
+			break;
+		case 52:
+			menu4<complex<float>>();
+			break;
+		case 53:
+			menu4<complex<double>>();
+			break;
+		}
+		
 	}
 	return 0;
 }
