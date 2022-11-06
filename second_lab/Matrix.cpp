@@ -238,4 +238,10 @@ ostream& operator<< (ostream& s, const Matrix<T>& matrix) {
 	return s;
 }
 
+template class Matrix <int>;
+template class Matrix <float>;
+template class Matrix <double>;
+template class Matrix <complex<float>>;
+template class Matrix <complex<double>>;
+
 

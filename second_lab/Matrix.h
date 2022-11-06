@@ -10,6 +10,7 @@
 • вычисление следа матрицы.
 ЗАДАЧА : Привести заданную квадратную матрицу А к нижнетреугольному виду. */
 #include <iostream>
+#include <complex>
 template <typename T>
 class Matrix {
 private:

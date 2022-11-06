@@ -73,6 +73,22 @@ int menu3() {
 	}
 }
 
+int menu4() {
+	cout << "\nКакой тип данных вы хотите использовать?"
+		"1 - int"
+		"2 - float"
+		"3 - double"
+		"4 - complex(float)"
+		"5 - complex(double)"
+		"Выход: Esc\n";
+	while (true)
+	{
+		int key = GetKey();
+		if ((key == 27) || (key > '0' && key <= '5'))
+			return key;
+	}
+}
+
 template <typename T>
 void SetData(Matrix<T>& Mass, int m, int n) {
 	double value;
