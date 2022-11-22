@@ -225,7 +225,6 @@ template <typename T>void menu4() {
 			}
 		}
 	}
-	return 0;
 }
 int main() {
 	cout << "\nКакой тип данных вы хотите использовать?"
@@ -255,8 +254,9 @@ int main() {
 		case 53:
 			menu4<complex<double>>();
 			break;
+		case 27:
+			break;
 		}
-		
 	}
 	return 0;
 }

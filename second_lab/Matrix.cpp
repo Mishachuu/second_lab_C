@@ -53,9 +53,9 @@ template <typename T>
 Matrix<T>::Matrix(const Matrix& M_) {
 	m = M_.m;
 	n = M_.n;
-	M = new double* [m];
+	M = (T**) new T*[m];
 	for (int i = 0; i < m; i++) {
-		M[i] = new double[n];
+		M[i] = (T*) new T[n];
 	}
 
 	for (int i = 0; i < m; i++) {
@@ -63,8 +63,6 @@ Matrix<T>::Matrix(const Matrix& M_) {
 			M[i][j] = M_.M[i][j];
 		}
 	}
-
-	return *this;
 }
 
 
@@ -171,8 +169,8 @@ Matrix<T> Matrix<T>::operator * (const T a) {
 
 
 template <typename T>
-Matrix<T> Matrix<T>::operator / (T a) {
-	if (a == 0) throw EdivisionZero();
+Matrix<T> Matrix<T>::operator / (const T a) {
+	if (a == T(0)) throw EdivisionZero();
 	Matrix tmp(m, n);
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
@@ -186,7 +184,7 @@ Matrix<T> Matrix<T>::operator / (T a) {
 template <typename T>
 T Matrix<T>::Trace() {
 	if (n != m)  throw EInvalidQuadrate();
-	double sum = 0;
+	T sum = 0;
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
 			if (i == j) {
@@ -201,7 +199,7 @@ T Matrix<T>::Trace() {
 template <typename T>
 Matrix<T> Matrix<T>::Triangular() {
 	if (n != m)  throw EInvalidQuadrate();
-	double r;
+	T r;
 	for (int i = 0; i < n - 1; i++) {
 		for (int j = i + 1; j < n; j++) {
 			r = M[j][i] / M[i][i];
@@ -217,7 +215,7 @@ Matrix<T> Matrix<T>::Triangular() {
 template <typename T>
 void Matrix<T>::Transpose() {
 	if (n != m) throw EInvalidQuadrate();
-	double s;
+	T s;
 	for (int i = 0; i < n; i++)
 		for (int j = i + 1; j < n; j++) {
 			s = M[i][j];
