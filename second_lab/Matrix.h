@@ -11,6 +11,7 @@
 ЗАДАЧА : Привести заданную квадратную матрицу А к нижнетреугольному виду. */
 #include <iostream>
 #include <complex>
+
 template <typename T>
 class Matrix {
 private:
@@ -30,11 +31,18 @@ public:
 	Matrix<T> operator + (const Matrix<T>& B);
 	Matrix<T> operator - (const Matrix<T>& B);
 	Matrix<T> operator * (const Matrix<T>& B);
-	Matrix<T> operator * (const T a);
-	Matrix<T> operator / (const T a);
+	Matrix<T> operator * (const int a);
+	Matrix<T> operator / (const int a);
 	T Trace();
 	Matrix<T> Triangular();
 	void Transpose();
-	friend std::ostream& operator << (std::ostream& s, const Matrix<T>& matrix);
-};
 
+	friend std::ostream& operator << (std::ostream& s, const Matrix<T>& matrix) {
+		for (int i = 0; i < matrix.m; i++) {
+			for (int j = 0; j < matrix.n; j++)
+				s << matrix.M[i][j] << " ";
+			s << "\n";
+		}
+		return s;
+	}
+};

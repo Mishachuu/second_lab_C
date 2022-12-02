@@ -18,6 +18,7 @@ using namespace std;
 • оператор деления матрицы на скаляр;
 • вычисление следа матрицы.
 ЗАДАЧА : Привести заданную квадратную матрицу А к нижнетреугольному виду. */
+
 int GetKey()
 {
 	int key = _getch();
@@ -77,7 +78,7 @@ int menu3() {
 
 template <typename T>
 void SetData(Matrix<T>& Mass, int m, int n) {
-	double value;
+	T value=NULL;
 	cout << "Введите значения\n";
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
@@ -106,7 +107,7 @@ int IntCheck()
 
 	return number;
 }
-
+/*
 template <typename T>
 void RandValue(Matrix<T>& Mass, int m, int n) {
 	for (int i = 0; i < m; i++) {
@@ -115,17 +116,18 @@ void RandValue(Matrix<T>& Mass, int m, int n) {
 		}
 	}
 }
-
+*/
 template <typename T>void menu4() {
 	Matrix<T> C, B;
-	setlocale(LC_ALL, "");
+	
 	int column, row;
+	T value;
 	while (true) {
 		system("cls");
 		cout << "Введите размеры матрицы А (число столбцов и строк) а так же число для заполнения:";
 		column = IntCheck();
 		row = IntCheck();
-		T value = IntCheck();
+		cin >> value;
 		Matrix<T> A(column, row, value);
 		while (true) {
 			system("cls");
@@ -143,8 +145,21 @@ template <typename T>void menu4() {
 		}
 		cout << "Введите размеры матрицы B (число столбцов и строк):";
 		cin >> column >> row;
-		Matrix<T> B(column, row);
-		RandValue(B, column, row);
+		Matrix<T> B(column, row,value);
+		while (true) {
+			system("cls");
+			cout << "A:\n" << A << endl;
+			int m3 = menu3();
+			if (m3 == 27) break;
+			switch (m3)
+			{
+			case 49:
+				SetData(B, column, row);
+			case 50:
+				break;
+			}
+			break;
+		}
 		cout << "A:\n" << A << endl;
 		cout << "B:\n" << B << endl;
 		int m1 = Menu1();
@@ -227,12 +242,13 @@ template <typename T>void menu4() {
 	}
 }
 int main() {
-	cout << "\nКакой тип данных вы хотите использовать?"
-		"1 - int"
-		"2 - float"
-		"3 - double"
-		"4 - complex(float)"
-		"5 - complex(double)"
+	setlocale(LC_ALL, "");
+	cout << "\nКакой тип данных вы хотите использовать?\n"
+		"1 - int\n"
+		"2 - float\n"
+		"3 - double\n"
+		"4 - complex(float)\n"
+		"5 - complex(double)\n"
 		"Выход: Esc\n";
 	while (true)
 	{
@@ -257,6 +273,7 @@ int main() {
 		case 27:
 			break;
 		}
+		break;
 	}
 	return 0;
 }

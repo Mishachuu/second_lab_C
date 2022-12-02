@@ -1,6 +1,8 @@
 #include "Matrix.h"
 #include <iostream>
 #include "Exteption.h"
+#include <complex>
+#include <stdio.h>
 /* Вариант 2. Матрицы
 Класс матриц вещественных чисел произвольного размера.
 Как минимум, предоставить:
@@ -14,6 +16,7 @@
 ЗАДАЧА : Привести заданную квадратную матрицу А к нижнетреугольному виду. */
 
 using namespace std;
+
 template <typename T>
 Matrix<T>::Matrix() {
 	m = 0;
@@ -53,7 +56,7 @@ template <typename T>
 Matrix<T>::Matrix(const Matrix& M_) {
 	m = M_.m;
 	n = M_.n;
-	M = (T**) new T*[m];
+	M = (T**) new T * [m];
 	for (int i = 0; i < m; i++) {
 		M[i] = (T*) new T[n];
 	}
@@ -157,11 +160,11 @@ Matrix<T> Matrix<T>::operator * (const Matrix& B) {
 
 
 template <typename T>
-Matrix<T> Matrix<T>::operator * (const T a) {
+Matrix<T> Matrix<T>::operator * (const int a) {
 	Matrix tmp(m, n);
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
-			tmp.M[i][j] = M[i][j] * a;
+			tmp.M[i][j] = M[i][j] * T(a);
 		}
 	}
 	return tmp;
@@ -169,12 +172,12 @@ Matrix<T> Matrix<T>::operator * (const T a) {
 
 
 template <typename T>
-Matrix<T> Matrix<T>::operator / (const T a) {
-	if (a == T(0)) throw EdivisionZero();
+Matrix<T> Matrix<T>::operator / (const int a) {
+	if (T(a) == T(0)) throw EdivisionZero();
 	Matrix tmp(m, n);
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
-			tmp.M[i][j] = M[i][j] / a;
+			tmp.M[i][j] = M[i][j] / T(a);
 		}
 	}
 	return tmp;
@@ -225,21 +228,10 @@ void Matrix<T>::Transpose() {
 }
 
 
-template <typename T>
-ostream& operator<< (ostream& s, const Matrix<T>& matrix) {
-
-	for (int i = 0; i < matrix.m; i++) {
-		for (int j = 0; j < matrix.n; j++)
-			s << matrix.M[i][j] << " ";
-		s << "\n";
-	}
-	return s;
-}
-
 template class Matrix <int>;
 template class Matrix <float>;
 template class Matrix <double>;
-template class Matrix <complex<float>>;
-template class Matrix <complex<double>>;
+template class Matrix <std::complex<float>>;
+template class Matrix <std::complex<double>>;
 
 
