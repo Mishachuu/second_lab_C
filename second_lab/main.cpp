@@ -73,7 +73,31 @@ int menu3() {
 			return key;
 	}
 }
+template<typename T>
+void MenuInputComplex()
+{
+	system("cls");
+	int column, row;
+	Matrix<T>* Mass = NULL;
+	cout << "¬ведите размер матрицы:";
+	column = IntCheck();
+	row = IntCheck();
+	double R = 0;
+	double I = 0;
+	for (int i = 0; i < column; i++) {
+		for (int j = 0; j < row; j++) {
+			string str;
+			cin >> str;
 
+			R = stoi(str);
+
+			cin >> str;
+			I = stoi(str);
+			Mass(i, j,T(R, I));
+		}
+	}
+	Menu4(Mass);
+}
 
 
 template <typename T>
@@ -265,10 +289,10 @@ int main() {
 			menu4<double>();
 			break;
 		case 52:
-			menu4<complex<float>>();
+			MenuInputComplex<std::complex<float>>();
 			break;
 		case 53:
-			menu4<complex<double>>();
+			MenuInputComplex<complex<double>>();
 			break;
 		case 27:
 			break;
