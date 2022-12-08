@@ -73,36 +73,11 @@ int menu3() {
 			return key;
 	}
 }
-template<typename T>
-void MenuInputComplex()
-{
-	system("cls");
-	int column, row;
-	Matrix<T>* Mass = NULL;
-	cout << "Введите размер матрицы:";
-	column = IntCheck();
-	row = IntCheck();
-	double R = 0;
-	double I = 0;
-	for (int i = 0; i < column; i++) {
-		for (int j = 0; j < row; j++) {
-			string str;
-			cin >> str;
-
-			R = stoi(str);
-
-			cin >> str;
-			I = stoi(str);
-			Mass(i, j,T(R, I));
-		}
-	}
-	Menu4(Mass);
-}
 
 
 template <typename T>
 void SetData(Matrix<T>& Mass, int m, int n) {
-	T value=NULL;
+	T value = NULL;
 	cout << "Введите значения\n";
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
@@ -114,10 +89,11 @@ void SetData(Matrix<T>& Mass, int m, int n) {
 }
 
 
-int IntCheck()
+template <typename T>
+T Check()
 {
-	int number = 0;
-	while (number <= 0)
+	T number = T(0);
+	while (number == T(0))
 	{
 		while (!(cin >> number) || (cin.peek() != '\n'))
 		{
@@ -125,33 +101,25 @@ int IntCheck()
 			while (cin.get() != '\n');
 			cout << "Ошибка! Повторите ввод значения\n";
 		}
-		if (number <= 0) cout << "Ошибка! Повторите ввод значения\n";
+		if (number == T(0)) cout << "Ошибка! Повторите ввод значения\n";
 
 	}
 
-	return number;
+	return abs(number);
 }
-/*
-template <typename T>
-void RandValue(Matrix<T>& Mass, int m, int n) {
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-			Mass(i, j, rand() % 9);
-		}
-	}
-}
-*/
+
+
 template <typename T>void menu4() {
 	Matrix<T> C, B;
-	
+
 	int column, row;
 	T value;
 	while (true) {
 		system("cls");
 		cout << "Введите размеры матрицы А (число столбцов и строк) а так же число для заполнения:";
-		column = IntCheck();
-		row = IntCheck();
-		cin >> value;
+		column = Check<int>();
+		row = Check<int>();
+		value = Check<T>();
 		Matrix<T> A(column, row, value);
 		while (true) {
 			system("cls");
@@ -168,11 +136,13 @@ template <typename T>void menu4() {
 			break;
 		}
 		cout << "Введите размеры матрицы B (число столбцов и строк):";
-		cin >> column >> row;
-		Matrix<T> B(column, row,value);
+		column = Check<int>();
+		row = Check<int>();
+		value=Check<T>();
+		Matrix<T> B(column, row, value);
 		while (true) {
 			system("cls");
-			cout << "A:\n" << A << endl;
+			cout << "A:\n" << B << endl;
 			int m3 = menu3();
 			if (m3 == 27) break;
 			switch (m3)
@@ -184,6 +154,7 @@ template <typename T>void menu4() {
 			}
 			break;
 		}
+		
 		cout << "A:\n" << A << endl;
 		cout << "B:\n" << B << endl;
 		int m1 = Menu1();
@@ -223,7 +194,7 @@ template <typename T>void menu4() {
 				break;
 			case 52:
 				cout << "Введите скаляр:";
-				cin >> scal;
+				scal=Check<int>();
 				system("cls");
 				cout << "Результат умножение матрицы на скаляр:\n";
 				try {
@@ -236,7 +207,7 @@ template <typename T>void menu4() {
 				system("cls");
 				cout << "Результат деления матрицы на скаляр:\n";
 				cout << "Введите скаляр:";
-				cin >> scal;
+				scal = Check<int>();
 				try {
 					C = A / scal;
 					cout << C;
@@ -289,15 +260,12 @@ int main() {
 			menu4<double>();
 			break;
 		case 52:
-			MenuInputComplex<std::complex<float>>();
+			menu4<complex<float>>();
 			break;
 		case 53:
-			MenuInputComplex<complex<double>>();
-			break;
-		case 27:
+			menu4<complex<double>>();
 			break;
 		}
-		break;
 	}
 	return 0;
 }
